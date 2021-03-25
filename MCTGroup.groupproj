@@ -1,0 +1,48 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{BFA3CFAB-7BBF-4BC1-9EA7-DA3CC2753DA5}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="MakeContents.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="..\ImageTest\ImageTest.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="MakeContents">
+        <MSBuild Projects="MakeContents.dproj"/>
+    </Target>
+    <Target Name="MakeContents:Clean">
+        <MSBuild Projects="MakeContents.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="MakeContents:Make">
+        <MSBuild Projects="MakeContents.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="ImageTest">
+        <MSBuild Projects="..\ImageTest\ImageTest.dproj"/>
+    </Target>
+    <Target Name="ImageTest:Clean">
+        <MSBuild Projects="..\ImageTest\ImageTest.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="ImageTest:Make">
+        <MSBuild Projects="..\ImageTest\ImageTest.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="MakeContents;ImageTest"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="MakeContents:Clean;ImageTest:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="MakeContents:Make;ImageTest:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>
